@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
       <div class="d-flex justify-content-center">
       <div class="border"> 
-        <form>
+        <form action="/links/editar_horario/{{user.id_usuario}},1" method="POST">
           <h5 class="text-center">Agrega una clase</h5><br>
           <div class="form-group d-flex justify-content-center">
             <select class="form-select btn btn-secondary" aria-label="Default select example">
@@ -36,7 +36,7 @@
           </div>
           <div class="d-flex justify-content-around">
             <div class="d-flex align-items-center p-2">
-                <button type="button" class="btn btn-secondary">Guardar</button>
+                <button type="submit" class="btn btn-secondary">Guardar</button>
                 
             </div>  
           </div>
@@ -47,7 +47,7 @@
      <!--DIV EDITAR HORARIO-->
     <div class="d-flex justify-content-center">
       <div class="border">
-        <form action="">
+        <form action="/links/editar_horario/{{user.id_usuario}},2" method="POST">
           <h5 class="text-center">Editar tu horario</h5><br>
           <div class="form-group d-flex justify-content-center">          
             <select class="form-select btn btn-secondary" aria-label="Default select example">
@@ -83,6 +83,13 @@
                     
                   </select>              
               </div>                         
+          </div>
+          <div class="d-flex justify-content-around">
+            <select class="form-select btn btn-secondary" id="inhoras4" aria-label="Default select example">
+              <option selected>Hora de inicio</option>
+              <option></option>
+              <option></option>
+            </select>   
           </div>
           <div class="d-flex justify-content-around">
             <div class="d-flex align-items-center p-2">
