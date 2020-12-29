@@ -125,16 +125,30 @@ router.get('/clase_pendiente', (req,res)=>{
 router.get('/proyecto', (req,res)=>{
     res.render('links/proyecto'); 
 });
-router.get('/editar_horario', (req,res)=>{    
+router.get('/editar_horario', async (req,res)=>{  
+    const clase = await pool.query("call GetClas (?)", 121);
+    clase.pop();
+    console.log(clase[0]);
     res.render('links/editar_horario'); 
 });
-router.post('/editar_horario/:id,:case', (req,res)=>{  
+router.post('/editar_horario/:id,:case', async (req,res)=>{  
     const id = req.params;  
     if(id.case==1){
-        console.log("Bienvenido al caso 1 para agregar una clae c:");
-        res.render('links/editar_horario'); 
+        let {nombre, dia, horai, horat} = req.body;
+        let clase ={
+            nombre,
+            dia,
+            horai,
+            horat
+        };        
+        clase.dia=parseInt(clase.dia);
+        clase.horai=parseInt(clase.horai);
+        clase.horat=parseInt(clase.horat);
+       await pool.query("call SaveClas (?, ?, ?, ?, ?)", [clase.nombre, clase.dia, clase.horai, clase.horat, id.id]);        
+        res.redirect('/links/editar_horario'); 
     }else{
-        console.log("Caso de editar horario");
+        console.log("Caso de eliminar clase");
+        
         res.render('links/editar_horario'); 
     }
     
