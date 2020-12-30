@@ -1,3 +1,5 @@
+var nota = document.currentScript.getAttribute('nota');
+    console.log(nota);
 function guardar(descargar){
     var img = document.getElementById("img");
     var name = document.getElementById("nombre").value;
@@ -47,13 +49,15 @@ $(document).ready(function() {
             ['view', ['codeview', 'help']],
           ]
     });
+    if (nota != "") {
+        $('#nota').summernote('code',nota);
+    }
+    
 });
 
 async function saveNota() {
     console.log("body");
     var text = $('#nota').summernote('code');
     var array = {nota: text};
-    await fetch("/links/save_nota", {method: 'POST',headers:{'Content-Type': 'application/json'},  body:JSON.stringify(array)}).then(response => response.json().then(data =>{
-        console.log(data.tag);
-    }));
+    await fetch("/links/save_nota", {method: 'POST',headers:{'Content-Type': 'application/json'},  body:JSON.stringify(array)});
 }

@@ -2,7 +2,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pool = require('../database');
 
-
 passport.use('local.login', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
@@ -12,12 +11,8 @@ passport.use('local.login', new LocalStrategy({
     if(rows.length > 0){
         //notaaa para ellogin use nombre de usuario como contraseña porque no me deja por la ñ
         const user = rows[0];
-        console.log('pass:',password);
-        console.log(user.nombre_usuario);
         user.nota = "";
         if(password == user.nombre_usuario){
-            console.log('llega');
-            console.log('ussser: ', user);
             done(null, user,null);
         }else{
             console.log('mal algo');
@@ -31,8 +26,6 @@ passport.use('local.login', new LocalStrategy({
 }));
 
 passport.serializeUser((user,done)=>{
-    console.log('llegamos a la serializacion', user);
-    console.log(user.id_usuario);
     done(null, user.id_usuario);
 });
 passport.deserializeUser(async (id,done)=>{

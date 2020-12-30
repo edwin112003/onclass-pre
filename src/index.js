@@ -55,9 +55,27 @@ app.use(passport.session());
 
 
 //globales
+app.locals.nota = "";
+app.locals.user = {
+  id_usuario: 0,
+  usertag: '',
+  pass_usuario: '',
+  correo_usuario: '',
+  nombre_usuario: '',
+  llave_usuario: '',
+  nota: ''
+}
 app.use((req,res,next)=>{
-    app.locals.user= req.user;
-    console.log('xd',req.user);
+  if (typeof(req.user) == "undefined") {
+    app.locals.user = req.user;
+    app.locals.nota = "";
+    console.log('xdd',req.user);
+  }else{
+    console.log(typeof(typeof(req.user)));
+    req.user.nota = app.locals.nota;
+    app.locals.user = req.user;
+    console.log('Aber2',req.user);
+  }
     next();
 });
 //ruta

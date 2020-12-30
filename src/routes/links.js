@@ -174,12 +174,12 @@ router.post("/save_pdf",async(req,res)=>{
 await cloudinary.uploader.upload("data:image/png;base64,"+req.body.pdf,{format:'jpg', public_id: req.body.nombre}, function(error, result) {console.log(result, error); response = result;});
 res.json({ url: response.url }); 
 });
-/*router.post("/save_nota",(req,res)=>{
+router.post("/save_nota",(req,res)=>{
     console.log("Index")
-    res.locals.user.nota = req.body.nota;
-    console.log("buenas", res.locals.user.nota);
-    res.json({tag: res.locals.user.usertag});
-    });*/
+    req.app.locals.nota = req.body.nota;
+    console.log("buenas", req.app.locals.nota);
+    res.json({tag: req.app.locals.user.usertag});
+    });
 /*Esta es la url que se va a meter a la basede datos*/
 url_mysql = response.url;
 module.exports = router;
