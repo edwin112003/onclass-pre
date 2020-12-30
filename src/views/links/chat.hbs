@@ -83,6 +83,10 @@
       {{room}}
       {{/each}}
     </div>
+    <div>
+      buenasd
+      {{newlink}}
+    </div>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
@@ -98,6 +102,6 @@
 
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/js_chat/main.js" username = '{{user.nombre_usuario}}'></script>
+    <script src="/js_chat/main.js" username = '{{user.nombre_usuario}} ' room = '{{newlink}}'></script>
   </body>
 </html>
