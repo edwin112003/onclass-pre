@@ -38,8 +38,28 @@ router.get('/logout', (req,res)=>{
     req.logOut();
     res.redirect('/links/login');
 });
-
 //cerrar sesion final
+
+//rutas del chat
+router.get('/chat', isLoggedIn, (req,res)=>{
+    console.log('chat:',  req.params);
+    console.log('chat:',  req.body);
+    res.render('links/chat', {layout: 'login'});
+});
+router.get('/chat_menu', isLoggedIn, (req,res)=>{
+    res.render('links/chat_menu', {layout : 'login'});
+});
+router.post('/chat_menu', isLoggedIn, (req,res)=>{
+    console.log('bodu:', req.body) ;
+    const {username,room} = req.body;     
+    const newlink = {
+        username,
+        room
+        };
+    console.log(newlink.room);
+    res.redirect('/links/chat');
+});
+//rutas del chat final    
 router.get('/index_login', (req,res)=>{
     res.render('links/index_login'); 
 });
@@ -48,7 +68,7 @@ router.get('/registro', (req,res)=>{
 }); 
 router.get('/clase_resto_dia', (req,res)=>{
     res.render('links/clase_resto_dia'); 
-});
+}); 
 router.get('/Horario', isLoggedIn, (req,res)=>{
     
     res.render('links/Horario'); 
@@ -140,9 +160,7 @@ router.post('/editar_horario/:id,:case', (req,res)=>{
     
     
 });
-router.get('/chat', (req,res)=>{
-    res.render('links/chat');
-});
+
 router.get('/ver', async (req,res)=>{
     const clase = await pool.query('call GetCont(?)',11);
     clase.pop();

@@ -15,6 +15,7 @@ passport.use('local.login', new LocalStrategy({
         console.log('pass:',password);
         console.log(user.nombre_usuario);
         user.nota = "";
+        user.room = "";
         if(password == user.nombre_usuario){
             console.log('llega');
             console.log('ussser: ', user);
@@ -39,5 +40,6 @@ passport.deserializeUser(async (id,done)=>{
     const rows = await pool.query('select * from e_usuario where id_usuario = ?', [id]);
     const user = rows[0];
     user.nota = "";
+    user.room = "";
     done(null, user);
 });

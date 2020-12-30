@@ -57,7 +57,6 @@ app.use(passport.session());
 //globales
 app.use((req,res,next)=>{
     app.locals.user= req.user;
-    console.log('xd',req.user);
     next();
 });
 //ruta
@@ -69,6 +68,7 @@ io.on('connection', socket => {
     console.log('entrada de nuevo socket');
     socket.on('joinRoom', ({ username, room }) => {
       const user = userJoin(socket.id, username, room);
+      console.log('saadshgasjkdgajsghdajsgdasd',user);
   
       socket.join(user.room);
   
@@ -119,6 +119,6 @@ io.on('connection', socket => {
 
 //inciar servidor
 http.listen(app.get('port'), ()=>{
-    console.log('Server en : ', app.get('port')); 
+    console.log('Server en : ', app.get('port'));  
 });
 
