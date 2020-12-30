@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
       <div class="d-flex justify-content-center">
       <div class="border"> 
-        <form action="/links/editar_horario/{{user.id_usuario}},1" method="POST">
+        <form action="/links/editar_horario/{{user.id_usuario}}" method="POST">
           <h5 class="text-center">Agrega una clase</h5><br>
           <div class="form-group d-flex justify-content-center">
             
@@ -48,8 +48,8 @@
      <!--DIV EDITAR HORARIO-->
     <div class="d-flex justify-content-center">
       <div class="border">
-        <form action="/links/editar_horario/{{user.id_usuario}},2" method="POST">
-          <h5 class="text-center">Elimina una clase</h5><br>
+        <form action="/links/editar_clase/{{user.id_usuario}}" method="GET">
+          <h5 class="text-center">Elimina/Edita una clase</h5><br>
           <div class="form-group d-flex justify-content-center">          
             <select class="form-select btn btn-secondary" name="dia" aria-label="Default select example">
                     <option selected>Seleccione un dia</option>
@@ -65,37 +65,24 @@
           <div class="dropdown d-flex justify-content-center">
             <select class="form-select btn btn-secondary"  aria-label="Default select example">
                     <option selected>Seleccione una clase</option>
-                    
+                    {{#each clases}}
+                    <option value="{{nombre_clase}}">{{nombre_clase}}</option>
+                    {{/each}}
             </select> 
           </div><br>
           <div class="d-flex justify-content-around">
               <div class=" form-group p-2">
                   <select class="form-select btn btn-secondary" name="horai" id="inhoras3" aria-label="Default select example">
-                    <option selected>Hora de inicio</option>
-                    
+                    <option selected>Hora de inicio</option>                    
                   </select>                 
-              </div>
-              <div class=" form-group p-2">
-                  <select class="form-select btn btn-secondary" name="horat" id="inhoras4" aria-label="Default select example">
-                    <option selected>Hora de inicio</option>
-                    
-                  </select>              
-              </div>                         
-          </div>
-          <div class="d-flex justify-content-around">
-            <select class="form-select btn btn-secondary" id="inhoras4" aria-label="Default select example">
-              <option selected>Operacion a realizar</option>
-              <option value="1">Editar clase</option>
-              <option value="2">Eliminar clase</option>
-            </select>   
-          </div>
+              </div>                                  
+          </div>          
           <div class="d-flex justify-content-around">
             <div class="d-flex align-items-center p-2">
-              <button type="button" class="btn btn-secondary">Realizar cambios</button>
-            </div>  
+              <button type="submit" class="btn btn-secondary">Editar clase</button>
+            </div>   
           </div>
-        </form> 
-                
+        </form>                 
       </div>      
     </div><br>
 

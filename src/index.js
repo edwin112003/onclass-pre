@@ -58,8 +58,10 @@ app.use(passport.session());
 app.use((req,res,next)=>{
     app.locals.user= req.user;
     console.log('xd',req.user);
+    
     next();
 });
+
 //ruta
 
 app.use(require('./routes'));

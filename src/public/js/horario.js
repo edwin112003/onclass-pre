@@ -1,5 +1,5 @@
 //Intentar poner las horas con js 
-for(let j=1; j<5; j++){
+for(let j=1; j<4; j++){
     if(j==1 || j==3){
         for(let i=0; i<25; i++){
             let a = document.createElement("option");
