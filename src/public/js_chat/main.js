@@ -7,9 +7,16 @@ const userList = document.getElementById('users');
 
 var username= document.currentScript.getAttribute('username');
 console.log('atributo:', username);
-var room = document.getElementById('room');
-console.log('sala: ',room);
- 
+var room= document.currentScript.getAttribute('room');
+console.log('atributo:', room);
+
+async function ObtenerSala() {
+  var room = document.getElementById('room').value;
+  console.log('sala: ',room);
+  var array = {room: room};
+  await fetch("/links/guardar_sala", {method: 'POST',headers:{'Content-Type': 'application/json'},  body:JSON.stringify(array)});
+}
+
 const socket = io();
 // Join chatroom
 

@@ -58,7 +58,7 @@ router.post('/chat_menu', isLoggedIn, (req,res)=>{
         room
         };
     console.log(newlink.room);
-    res.redirect('/links/chat');
+    res.render('links/chat', {layout: 'login',newlink : newlink.room});
 });
 //rutas del chat final    
 router.get('/index_login', (req,res)=>{
