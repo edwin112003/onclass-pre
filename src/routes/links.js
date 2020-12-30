@@ -4,6 +4,7 @@ const router = express.Router();
 const pool = require('../database');
 const passport = require('passport');
 const {isLoggedIn}= require('../lib/auth'); 
+
 var cloudinary = require('cloudinary').v2;
 //buenas
 
@@ -145,20 +146,55 @@ router.get('/clase_pendiente', (req,res)=>{
 router.get('/proyecto', (req,res)=>{
     res.render('links/proyecto'); 
 });
-router.get('/editar_horario', (req,res)=>{    
-    res.render('links/editar_horario'); 
+router.get('/editar_horario', async (req,res)=>{  
+    const clase = await pool.query("call GetClas (?)", 121);
+    clase.pop();
+    res.render('links/editar_horario', {clases: clase[0]}); 
 });
-router.post('/editar_horario/:id,:case', (req,res)=>{  
+router.post('/editar_horario/:id', async (req,res)=>{  
     const id = req.params;  
-    if(id.case==1){
-        console.log("Bienvenido al caso 1 para agregar una clae c:");
-        res.render('links/editar_horario'); 
-    }else{
-        console.log("Caso de editar horario");
-        res.render('links/editar_horario'); 
-    }
     
-    
+        let {nombre, dia, horai, horat} = req.body;
+        let clase ={
+            nombre,
+            dia,
+            horai,
+            horat
+        };        
+        clase.dia=parseInt(clase.dia);
+        clase.horai=parseInt(clase.horai);
+        clase.horat=parseInt(clase.horat);
+       await pool.query("call SaveClas (?, ?, ?, ?, ?)", [clase.nombre, clase.dia, clase.horai, clase.horat, id.id]);        
+        res.redirect('/links/editar_horario'); 
+});
+router.get('/editar_clase/:id', async(req, res)=>{
+    const id =req.params;
+    let {dia, horai} = req.body ;
+        let clase = {
+            dia,
+            horai
+        };
+        console.log('Claseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',clase);
+        clase.dia=parseInt(clase.dia);
+        clase.horai=parseInt(clase.horai);
+        var editar_clase = await pool.query('call GetClasHora (?, ?, ?)', [clase.dia, clase.horai, id.id]);            
+            editar_clase.pop();
+            console.log(editar_clase[0]);
+    res.render('links/editar_clase', {clase : editar_clase[0]});
+});
+router.post('/editar_clase/:id', async (req, res)=>{
+    const id =req.params;
+    let {dia, horai} = req.body;
+        let clase = {
+            dia,
+            horai
+        };
+        clase.dia=parseInt(clase.dia);
+        clase.horai=parseInt(clase.horai);
+        var editar_clase = await pool.query('call GetClasHora (?, ?, ?)', [clase.dia, clase.horai, id.id]);            
+            editar_clase.pop();
+            console.log(editar_clase[0]);
+    res.render('links/editar_clase', {clase : editar_clase[0]});
 });
 
 router.get('/ver', async (req,res)=>{

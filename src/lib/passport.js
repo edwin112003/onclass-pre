@@ -19,7 +19,12 @@ passport.use('local.login', new LocalStrategy({
         if(password == user.nombre_usuario){
             console.log('llega');
             console.log('ussser: ', user);
-            done(null, user,null);
+            const clases = await pool.query("call GetClas (?)", [user.id_usuario]);
+            clases.pop();
+            const clas = clases[0];
+            
+            done(null, user, null);
+            
         }else{
             console.log('mal algo');
             done(null, false,null);
