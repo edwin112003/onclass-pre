@@ -4,13 +4,16 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 // Get username and room from URL
-const { username, room } = Qs.parse(location.search, {
-  ignoreQueryPrefix: true
-});
 
+var username= document.currentScript.getAttribute('username');
+console.log('atributo:', username);
+var room = document.getElementById('room');
+console.log('sala: ',room);
+ 
 const socket = io();
-
 // Join chatroom
+
+
 socket.emit('joinRoom', { username, room });
 
 // Get room and users
@@ -30,7 +33,7 @@ socket.on('message', message => {
 
 // Message submit
 chatForm.addEventListener('submit', e => {
-  e.preventDefault();
+  e.preventDefault(); 
 
   // Get message text
   let msg = e.target.elements.msg.value;
